@@ -8,9 +8,14 @@ public class IntListExercises {
      *
      * @param lst IntList from Lecture
      */
+    /*
+    *
+    *       part A : head.rest!=null -> head != null
+    *   如果终止条件是head.rest!=null,就是head->next == null 时停止，也就是说在head为最后一个node时，会终止addContent
+    * */
     public static void addConstant(IntList lst, int c) {
         IntList head = lst;
-        while (head.rest != null) {
+        while (head != null) {
             head.first += c;
             head = head.rest;
         }
@@ -23,10 +28,18 @@ public class IntListExercises {
      *
      * @param L IntList from Lecture
      */
+    /*
+    *   part b 通过断点调试发现在x>10时会忽略位数减少，因此只需要>=就可以通过test
+    *
+    *
+    * */
     public static void setToZeroIfMaxFEL(IntList L) {
         IntList p = L;
+
         while (p != null) {
-            if (firstDigitEqualsLastDigit(max(p))) {
+            int currentMax = max(p);
+            boolean currentMaxAvailable = firstDigitEqualsLastDigit(currentMax);
+            if (currentMaxAvailable) {
                 p.first = 0;
             }
             p = p.rest;
@@ -51,7 +64,7 @@ public class IntListExercises {
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
         int lastDigit = x % 10;
-        while (x > 10) {
+        while (x >= 10) {
             x = x / 10;
         }
         int firstDigit = x % 10;
@@ -65,6 +78,15 @@ public class IntListExercises {
      * @param lst IntList from Lecture
      * @return True if there was an update to the list
      */
+
+    /*
+    * part c
+    * 如何找出bug样点？
+    * 极端情况：全部都是质数，全部都不是质数
+    * 发现全部都是质数时，质数平方只有一次
+    *
+    * return 语句中用的时 || 运算符，具有短路效应，在判断currElemIsPrime 为Ture时会停止对链表的递归
+    * */
     public static boolean squarePrimes(IntList lst) {
         // Base Case: we have reached the end of the list
         if (lst == null) {
@@ -77,6 +99,6 @@ public class IntListExercises {
             lst.first *= lst.first;
         }
 
-        return currElemIsPrime || squarePrimes(lst.rest);
+        return squarePrimes(lst.rest) || currElemIsPrime; // || 的短路效应
     }
 }

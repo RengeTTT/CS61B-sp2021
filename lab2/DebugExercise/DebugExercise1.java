@@ -5,9 +5,13 @@ package DebugExercise;
  * feature work.
  */
 public class DebugExercise1 {
+    /*
+    *   int类型会直接截取整数部分，直接传入round作为参数会有截断误差
+    *
+    * */
     public static int divideThenRound(int top, int bottom) {
-        int quotient = top / bottom;
-        int result = Math.round(quotient);
+        double quotient = 1.0*top / bottom;
+        int result = (int)Math.round(quotient);
         return result;
     }
 
