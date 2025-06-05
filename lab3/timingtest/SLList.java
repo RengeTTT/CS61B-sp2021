@@ -76,6 +76,6 @@ public class SLList<Item> {
 		/* Creates a list of one integer, namely 10 */
 		SLList L = new SLList();
 		L.addLast(20);
-		System.out.println(L.size());
+		System.out.println(L.size()+","+L.getFirst());
 	}
 }
