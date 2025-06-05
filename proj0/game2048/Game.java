@@ -35,6 +35,7 @@ public class Game {
             moved = false;
             while (!moved) {
                 String cmnd = _source.getKey();
+                System.out.println(cmnd);
                 switch (cmnd) {
                     case "Quit":
                         _playing = false;

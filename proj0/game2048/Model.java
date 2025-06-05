@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author TODO: RengeTTT
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -113,7 +113,62 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        int len = board.size();
 
+        if(side.equals(Side.WEST)){
+            board.setViewingPerspective(side.WEST);
+        }else if(side.equals(Side.EAST)){
+            board.setViewingPerspective(side.EAST);
+        } else if (side.equals(Side.SOUTH)) {
+            board.setViewingPerspective(Side.SOUTH);
+        }
+
+        for (int i = 0 ; i<len ; i++) {
+            int left = len-1;
+            while(left>0){
+                Tile leftTile = board.tile(i, left);
+                if(leftTile == null){
+                    left--;
+                    continue;
+                }
+                int right = left-1;
+                while(right>=0){
+                    Tile rightTile = board.tile(i, right);
+                    if(rightTile == null){
+                        right--;
+                    }else{
+                        if(rightTile.value() == leftTile.value()){
+                            board.move(i,left,rightTile);
+                            score+=rightTile.value()+leftTile.value();
+                            changed = true;
+                        }
+                        break;
+                    }
+                }
+                left--;
+            }
+            left = len-1;
+
+            while(left>0){
+
+                Tile leftTile = board.tile(i, left);
+                if(leftTile == null){
+                    int right = left-1;
+                    while(right>=0){
+                        Tile rightTile = board.tile(i, right);
+                        if(rightTile==null){
+                            right--;
+                        }else{
+                            board.move(i,left,rightTile);
+                            changed = true;
+                            break;
+                        }
+                    }
+                }
+                left--;
+            }
+        }
+        board.setViewingPerspective(side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
@@ -138,6 +193,18 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        int boardLength = b.size();
+        /**
+         *  遍历数组找到tile为非null的tile即可判断board上是否存在非empty
+         *
+         * */
+        for(int i = 0 ; i<boardLength ; i++){
+            for(int j = 0 ; j<boardLength;j++){
+                if(b.tile(j,i)==null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +215,18 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        /**
+         *  遍历数组找到tile为2048的tile即可判断board上是否存在MAX_PIECE
+         *
+         * */
+        int boardLength = b.size();
+        for(int i = 0 ; i<boardLength ; i++){
+            for(int j = 0 ; j<boardLength;j++){
+                if (b.tile(j,i) != null && b.tile(j,i).value() == 2048) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,6 +238,32 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        if(emptySpaceExists(b) && !maxTileExists(b)){
+            return true;
+        }
+        int boardLength = b.size();
+        for (int i = 0 ; i < boardLength; i++) {
+            for (int j = 0 ; j < boardLength; j++){
+                Tile sourceTile = b.tile(j,i);
+
+                if (i-1 >= 0) {
+                    Tile targetTile = b.tile(j,i-1);
+                    if(sourceTile.value() == targetTile.value()) return true;
+                }
+                if (i+1 < boardLength) {
+                    Tile targetTile = b.tile(j,i+1);
+                    if(sourceTile.value() == targetTile.value()) return true;
+                }
+                if (j-1 >= 0) {
+                    Tile targetTile = b.tile(j-1,i);
+                    if(sourceTile.value() == targetTile.value()) return true;
+                }
+                if (j+1 < boardLength) {
+                    Tile targetTile = b.tile(j+1,i);
+                    if(sourceTile.value() == targetTile.value()) return true;
+                }
+            }
+        }
         return false;
     }
 
