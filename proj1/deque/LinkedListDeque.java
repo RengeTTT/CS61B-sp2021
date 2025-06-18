@@ -12,7 +12,7 @@ public class LinkedListDeque<T> {
         Node<T> prev;
         T val;
         Node<T> next;
-        public Node() {}
+        public Node(){}
         public Node(T val) {
             this.val = val;
         }

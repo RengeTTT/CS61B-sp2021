@@ -4,7 +4,7 @@ public class ArrayDeque<T> {
 
     T[] items;
 
-    int head,tail; // 循环数组head，tail跟踪队列头尾
+    int head, tail; // 循环数组head，tail跟踪队列头尾
     double usageRate;
 
     int size;
@@ -97,7 +97,7 @@ public class ArrayDeque<T> {
     }
     public T get(int index) {
 
-        if (index < 0 || index >= size){
+        if (index < 0 || index >= size) {
             return null;
         }
         return items[(head + index) & (items.length - 1)];
