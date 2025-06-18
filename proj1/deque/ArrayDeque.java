@@ -1,20 +1,19 @@
 package deque;
 
-public class ArrayDeque <T> {
+public class ArrayDeque<T> {
 
     T[] items;
 
-    int head , tail; // 循环数组head，tail跟踪队列头尾
+    int head,tail; // 循环数组head，tail跟踪队列头尾
     double usageRate;
 
     int size;
-    final static int MAX_CAPACITY = Integer.MAX_VALUE;
-    final static int DEFAULT_CAPACITY = 8;
-    final static double DEFAULT_LOAD_FACTOR = 0.25;
+    static final int MAX_CAPACITY = Integer.MAX_VALUE;
+    static final int DEFAULT_CAPACITY = 8;
+    static final double DEFAULT_LOAD_FACTOR = 0.25;
 
     public ArrayDeque() {
-
-        items = (T[])new Object[DEFAULT_CAPACITY];
+        items = (T[]) new Object[DEFAULT_CAPACITY];
         head = 0;
         tail = 0;
         size = 0;
@@ -22,8 +21,8 @@ public class ArrayDeque <T> {
     public ArrayDeque(ArrayDeque<T> deque) {
 
         int capacity = deque.items.length;
-        T[] newItems = (T[])new Object[capacity];
-        for (int i  = 0 ; i < deque.size() ; i++ ) {
+        T[] newItems = (T[]) new Object[capacity];
+        for (int i  = 0; i < deque.size(); i++) {
             int index = (deque.head + i) & (capacity - 1);
             newItems[index] = deque.items[index];
         }
@@ -59,7 +58,9 @@ public class ArrayDeque <T> {
     }
     public T removeFirst() {
 
-        if (isEmpty()) return null;
+        if (isEmpty()) {
+            return null;
+        }
 
         T item = items[head];
         items[head] = null;
@@ -75,7 +76,9 @@ public class ArrayDeque <T> {
     }
     public T removeLast() {
 
-        if (isEmpty()) return null;
+        if (isEmpty()) {
+            return null;
+        }
 
         tail = (tail - 1) & (items.length - 1);
         T item = items[tail];
@@ -109,7 +112,7 @@ public class ArrayDeque <T> {
         T[] newItems = (T[]) new Object[newCapacity];
         int newHead = newCapacity - (items.length - head);
         int newTail = tail;
-        for (int i = 0 ; i < size() ; i++) {
+        for (int i = 0; i < size(); i++) {
             int newIndex = (newHead + i) & (newCapacity - 1);
             int index = (head + i) & (oldCapacity - 1);
             newItems[newIndex] = items[index];
@@ -128,7 +131,7 @@ public class ArrayDeque <T> {
         double newUsageRate =  usageRate;
         while (true) {
             newCapacity = newCapacity >>> 1;
-            newUsageRate =  1.0 * size() / newCapacity;
+            newUsageRate = 1.0 * size() / newCapacity;
             if (newUsageRate > DEFAULT_LOAD_FACTOR) {
                 break;
             }
@@ -136,7 +139,7 @@ public class ArrayDeque <T> {
         T[] newItems = (T[]) new Object[newCapacity];
         int newHead = newCapacity - (items.length - head);
         int newTail = tail;
-        for (int i = 0 ; i < size() ; i++) {
+        for (int i = 0; i < size(); i++) {
             int newIndex = (newHead + i) & (newCapacity - 1);
             int index = (head + i) & (oldCapacity - 1);
             newItems[newIndex] = items[index];
@@ -147,10 +150,9 @@ public class ArrayDeque <T> {
         this.items = newItems;
     }
 
-
     public void printDeque() {
 
-        for (int i  = 0 ;  i < size() ; i++) {
+        for (int i  = 0;  i < size(); i++) {
             int index = (i + head) & (items.length - 1);
             System.out.print(items[index] + " ");
         }

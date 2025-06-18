@@ -1,6 +1,6 @@
 package deque;
 
-public class LinkedListDeque <T> {
+public class LinkedListDeque<T> {
 
     private Node<T> sentinel;
     private int size;
@@ -8,7 +8,7 @@ public class LinkedListDeque <T> {
     /*
     *  嵌套内部类定义Node节点，prev指向上一个节点，next指向下一个节点，构造单哨兵循环链表
     * */
-    public class Node <T> {
+    public class Node<T> {
         Node<T> prev;
         T val;
         Node<T> next;
@@ -16,7 +16,7 @@ public class LinkedListDeque <T> {
         public Node(T val) {
             this.val = val;
         }
-        public Node(Node<T> prev,T val,Node<T> next) {
+        public Node(Node<T> prev, T val, Node<T> next) {
             this.prev = prev;
             this.val = val;
             this.next = next;
@@ -33,7 +33,7 @@ public class LinkedListDeque <T> {
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         for (int i = 0; i < other.size(); i++) {
-            addLast((T)other.get(i));
+            addLast((T) other.get(i));
         }
         size = other.size();
     }
@@ -67,18 +67,20 @@ public class LinkedListDeque <T> {
     }
     public T removeFirst() {
         Node<T> removeItem = sentinel.next;
-        if (removeItem == sentinel) return null;
-
+        if (removeItem == sentinel) {
+            return null;
+        }
         sentinel.next = removeItem.next;    // 哨兵节点的下一个节点是被移除节点的下一个节点
         removeItem.next.prev = sentinel;    // 被移除节点的下一个节点的前一个节点是哨兵节点
         size--;
 
         return removeItem.val;
     }
-    public T removeLast () {
+    public T removeLast() {
         Node<T> removeItem = sentinel.prev;
-        if (removeItem == sentinel) return null;
-
+        if (removeItem == sentinel) {
+            return null;
+        }
         sentinel.prev = removeItem.prev;    // 哨兵节点的上一个节点（最后一个节点）是被移除节点的上一个节点
         removeItem.prev.next = sentinel;    // 最新的最后一个节点（倒数第二个节点）的下一个节点是哨兵节点
         removeItem.next = null;             // 处理没有更新的残存指向
@@ -92,9 +94,8 @@ public class LinkedListDeque <T> {
         if (index > size - 1 || index < 0) {
             return null;
         }
-
         while (curNode != sentinel) {
-            if(index == 0) {
+            if (index == 0) {
                 return curNode.val;
             }
             curNode = curNode.next;
@@ -119,7 +120,7 @@ public class LinkedListDeque <T> {
         return curNode.next;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         Node<T> curNode = sentinel.next;
         while (curNode != sentinel) {
             System.out.print(curNode.val + " ");
@@ -127,5 +128,4 @@ public class LinkedListDeque <T> {
         }
         System.out.println();
     }
-
 }
