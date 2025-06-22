@@ -35,8 +35,8 @@ public class TimeAList {
         for (int n : N) {
             Ns.addLast(n);
             opCounts.addLast(n);
-            Stopwatch stopwatch = new Stopwatch();
             AList<Integer> temp = new AList<>();
+            Stopwatch stopwatch = new Stopwatch();
             for (int i = 0; i < n; i += 1) {
                 temp.addLast(i);
             }
