@@ -3,17 +3,37 @@ package deque;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
 
-    T[] items;
+    private T[] items;
 
-    int head, tail; // 循环数组head，tail跟踪队列头尾
-    double usageRate;
+    public T[] getItems() {
+        return items;
+    }
 
-    int size;
-    static final int MAX_CAPACITY = Integer.MAX_VALUE;
-    static final int DEFAULT_CAPACITY = 8;
-    static final double DEFAULT_LOAD_FACTOR = 0.25;
+    public int getHead() {
+        return head;
+    }
+
+    public int getTail() {
+        return tail;
+    }
+
+    public double getUsageRate() {
+        return usageRate;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    private int head, tail; // 循环数组head，tail跟踪队列头尾
+    private double usageRate;
+
+    private int size;
+    private static final int MAX_CAPACITY = Integer.MAX_VALUE;
+    private static final int DEFAULT_CAPACITY = 8;
+    private static final double DEFAULT_LOAD_FACTOR = 0.25;
 
     public ArrayDeque() {
         items = (T[]) new Object[DEFAULT_CAPACITY];
@@ -153,7 +173,7 @@ public class ArrayDeque<T> implements Deque<T> {
         this.items = newItems;
     }
 
-    private class ArrayDequeIterator implements Iterator<T> {
+    public class ArrayDequeIterator implements Iterator<T> {
         int start = head & (items.length - 1);
         int end = tail;
         @Override

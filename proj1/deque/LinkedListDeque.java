@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     private Node<T> sentinel;
     private int size;
@@ -10,7 +10,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     /*
     *  嵌套内部类定义Node节点，prev指向上一个节点，next指向下一个节点，构造单哨兵循环链表
     * */
-    public class Node<T> {
+    private class Node<T> {
         Node<T> prev;
         T val;
         Node<T> next;
@@ -65,9 +65,11 @@ public class LinkedListDeque<T> implements Deque<T> {
         lastNode.next = sentinel;   // 最后一个节点的下一个节点是哨兵节点
         size++;
     }
+
     public boolean isEmpty() {
         return size == 0;
     }
+
     public int size() {
         return size;
     }
@@ -118,7 +120,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         return targetNode.val;
     }
 
-    private Node recursion(int index) {
+    private Node<T> recursion(int index) {
         if (index == 0) {
             return sentinel.next;
         }
@@ -143,7 +145,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
     public boolean equals(Object obj) {
         if (obj instanceof LinkedListDeque) {
-            LinkedListDeque objDeque = (LinkedListDeque)obj;
+            LinkedListDeque<T> objDeque = (LinkedListDeque<T>) obj;
             if (size != objDeque.size()) {
                 return false;
             }
