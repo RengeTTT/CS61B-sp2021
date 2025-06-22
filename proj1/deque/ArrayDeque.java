@@ -1,5 +1,8 @@
 package deque;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 public class ArrayDeque<T> {
 
     T[] items;
@@ -149,7 +152,12 @@ public class ArrayDeque<T> {
         this.usageRate = newUsageRate;
         this.items = newItems;
     }
+    public Iterator<T> iterator() {
 
+    }
+    public boolean equals(Object obj) {
+        return obj instanceof ArrayDeque && Arrays.equals(items, ((ArrayDeque) obj).items);
+    }
     public void printDeque() {
 
         for (int i  = 0;  i < size(); i++) {

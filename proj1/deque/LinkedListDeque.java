@@ -12,9 +12,13 @@ public class LinkedListDeque<T> {
         Node<T> prev;
         T val;
         Node<T> next;
-        public Node(){}
         public Node(T val) {
             this.val = val;
+        }
+        public Node() {
+            prev = null;
+            next = null;
+            val = null;
         }
         public Node(Node<T> prev, T val, Node<T> next) {
             this.prev = prev;

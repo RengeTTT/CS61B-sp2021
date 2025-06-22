@@ -123,6 +123,15 @@ public class Model extends Observable {
             board.setViewingPerspective(Side.SOUTH);
         }
 
+        /*
+        *   具体来讲，可以把棋盘看成是一列一列，每次移动只改变行数
+        *
+        *   如 :|null| ------->|null| ------->  | 4 |
+        *       | 2 |   先合并  | 4  |   再移动  |null|
+        *       | 2 |          | null|          |null|
+        *       |null|         |null|           |null|
+        *
+        * */
         for (int i = 0 ; i<len ; i++) {
             int left = len-1;
             while(left>0){
