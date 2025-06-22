@@ -1,6 +1,11 @@
 package deque;
 
 import org.junit.Test;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 public class ArrayDequeTest {
@@ -92,7 +97,7 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> deque2 = new ArrayDeque<>(deque);
         deque2.printDeque();
         deque.printDeque();
-        assertFalse(deque.equals(deque2));
+        assertFalse(deque.toString().equals(deque2.toString()));
 
     }
     @Test
@@ -121,4 +126,44 @@ public class ArrayDequeTest {
         deque.addFirst(0);
         deque.printDeque();
     }
+    @Test
+    public void IteratorTest() {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.addLast(1);
+        deque.addLast(2);
+        deque.addLast(3);
+        deque.addLast(4);
+        deque.removeLast();
+        Iterator<Integer> iterator = deque.iterator();
+        while (iterator.hasNext()) {
+            int element = iterator.next();
+            System.out.println(element);
+        }
+    }
+    @Test
+    public void equalsTest() {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.addLast(1);
+        deque.addLast(2);
+        deque.addLast(3);
+        deque.addLast(4);
+        ArrayDeque<Integer> deque2 = new ArrayDeque<>(deque);
+        assert deque.equals(deque2);
+    }
+    @Test
+    public void comparatorTest() {
+
+        Comparator<Integer> comparator = MaxArrayDeque.getComparator();
+        MaxArrayDeque<Integer> maxAD = new MaxArrayDeque<>(comparator);
+        maxAD.addLast(1);
+        maxAD.addLast(2);
+        maxAD.addLast(3);
+        maxAD.addLast(4);
+        maxAD.addLast(5);
+        maxAD.removeFirst();
+        maxAD.removeLast();
+        Integer item = maxAD.max(comparator);
+        assertEquals(maxAD.get(2) + "," + item,maxAD.get(2), item);
+    }
+
 }

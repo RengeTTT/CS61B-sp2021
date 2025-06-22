@@ -3,7 +3,7 @@ package deque;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
 
     T[] items;
 
@@ -152,11 +152,41 @@ public class ArrayDeque<T> {
         this.usageRate = newUsageRate;
         this.items = newItems;
     }
-    public Iterator<T> iterator() {
 
+    private class ArrayDequeIterator implements Iterator<T> {
+        int start = head & (items.length - 1);
+        int end = tail;
+        @Override
+        public boolean hasNext() {
+            return start < end;
+        }
+        @Override
+        public T next() {
+            T item = items[start];
+            start = (start + 1) & (items.length - 1);
+            return item;
+        }
+    }
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
     }
     public boolean equals(Object obj) {
-        return obj instanceof ArrayDeque && Arrays.equals(items, ((ArrayDeque) obj).items);
+        if (obj instanceof ArrayDeque) {
+
+            ArrayDeque objDeque = (ArrayDeque) obj;
+            if (size != objDeque.size()) {
+                return false;
+            }
+            Iterator<T> objIterator = iterator();
+            Iterator<T> thisItr = this.iterator();
+            while (thisItr.hasNext()) {
+                if (objIterator.next() != thisItr.next()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
     public void printDeque() {
 
