@@ -1,11 +1,8 @@
 package deque;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
-
-
 
     private final Comparator<T> comparator;
 
@@ -17,8 +14,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
 
         @Override
         public int compare(T o1, T o2) {
-            int cmp = (Integer) o1 - (Integer) o2;
-            return cmp;
+            return (Integer) o1 - (Integer) o2;
         }
     }
 
@@ -43,7 +39,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         T max = items[head & (items.length - 1)];
         for (int i = 0; i < this.size(); i++) {
             T current = items[(head + i) & (items.length - 1)];
-            if (comparator.compare(max, current) < 0) {
+            if (c.compare(max, current) < 0) {
                 max = current;
             }
         }
