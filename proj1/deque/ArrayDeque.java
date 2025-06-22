@@ -1,36 +1,14 @@
 package deque;
 
-import java.util.Arrays;
 import java.util.Iterator;
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
-public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
+    protected T[] items;
 
-    private T[] items;
+    protected int head, tail; // 循环数组head，tail跟踪队列头尾
+    protected double usageRate;
 
-    public T[] getItems() {
-        return items;
-    }
-
-    public int getHead() {
-        return head;
-    }
-
-    public int getTail() {
-        return tail;
-    }
-
-    public double getUsageRate() {
-        return usageRate;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    private int head, tail; // 循环数组head，tail跟踪队列头尾
-    private double usageRate;
-
-    private int size;
+    protected int size;
     private static final int MAX_CAPACITY = Integer.MAX_VALUE;
     private static final int DEFAULT_CAPACITY = 8;
     private static final double DEFAULT_LOAD_FACTOR = 0.25;
@@ -41,19 +19,19 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         tail = 0;
         size = 0;
     }
-    public ArrayDeque(ArrayDeque<T> deque) {
+    public ArrayDeque(ArrayDeque<T> other) {
 
-        int capacity = deque.items.length;
+        int capacity = other.items.length;
         T[] newItems = (T[]) new Object[capacity];
-        for (int i  = 0; i < deque.size(); i++) {
-            int index = (deque.head + i) & (capacity - 1);
-            newItems[index] = deque.items[index];
+        for (int i  = 0; i < other.size(); i++) {
+            int index = (other.head + i) & (capacity - 1);
+            newItems[index] = other.items[index];
         }
 
-        this.size = deque.size();
-        this.head = deque.head;
-        this.tail = deque.tail;
-        this.usageRate = deque.usageRate;
+        this.size = other.size();
+        this.head = other.head;
+        this.tail = other.tail;
+        this.usageRate = other.usageRate;
         this.items = newItems;
     }
 
@@ -173,12 +151,15 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         this.items = newItems;
     }
 
-    public class ArrayDequeIterator implements Iterator<T> {
+    private class ArrayDequeIterator implements Iterator<T> {
         int start = head & (items.length - 1);
         int end = tail;
         @Override
         public boolean hasNext() {
-            return start < end;
+            if (start < end) {
+                return true;
+            }
+            return false;
         }
         @Override
         public T next() {
@@ -191,9 +172,9 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         return new ArrayDequeIterator();
     }
     public boolean equals(Object obj) {
-        if (obj instanceof ArrayDeque) {
 
-            ArrayDeque objDeque = (ArrayDeque) obj;
+        if (obj instanceof LinkedListDeque || obj instanceof ArrayDeque) {
+            ArrayDeque<T> objDeque = (ArrayDeque<T>) obj;
             if (size != objDeque.size()) {
                 return false;
             }

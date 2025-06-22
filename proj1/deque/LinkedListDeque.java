@@ -14,15 +14,15 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         Node<T> prev;
         T val;
         Node<T> next;
-        public Node(T val) {
+        Node(T val) {
             this.val = val;
         }
-        public Node() {
+        Node() {
             prev = null;
             next = null;
             val = null;
         }
-        public Node(Node<T> prev, T val, Node<T> next) {
+        Node(Node<T> prev, T val, Node<T> next) {
             this.prev = prev;
             this.val = val;
             this.next = next;
@@ -34,12 +34,13 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         sentinel.prev = sentinel;
         size = 0;
     }
-    public LinkedListDeque(LinkedListDeque other) {
+    public LinkedListDeque(LinkedListDeque<T> other) {
         sentinel = new Node<>();
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         for (int i = 0; i < other.size(); i++) {
-            addLast((T) other.get(i));
+            T val = other.get(i);
+            addLast(val);
         }
         size = other.size();
     }
@@ -144,7 +145,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return new LinkedListIterator();
     }
     public boolean equals(Object obj) {
-        if (obj instanceof LinkedListDeque) {
+        if (obj instanceof LinkedListDeque || obj instanceof ArrayDeque) {
             LinkedListDeque<T> objDeque = (LinkedListDeque<T>) obj;
             if (size != objDeque.size()) {
                 return false;

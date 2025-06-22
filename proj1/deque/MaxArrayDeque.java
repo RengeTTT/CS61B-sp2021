@@ -1,61 +1,56 @@
 package deque;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
 
-    private final ArrayDequeComparator<T> comparator;
+
+
+    private final Comparator<T> comparator;
 
     public MaxArrayDeque(Comparator<T> c) {
-        this.comparator = (ArrayDequeComparator<T>) c;
+        this.comparator = c;
     }
 
-    private static class ArrayDequeComparator<T> implements Comparator<T> {
+    private static class MaxArrayDequeComparator<T> implements Comparator<T> {
 
-       @Override
+        @Override
         public int compare(T o1, T o2) {
-            return (Integer) o1 - (Integer) o2;
+            int cmp = (Integer) o1 - (Integer) o2;
+            return cmp;
         }
-
     }
 
     public T max() {
         if (isEmpty()) {
             return null;
         }
-        T items[] = this.getItems();
-        T max = items[0];
-        int head = this.getHead();
-        for (int i = 0; i < this.size() - 1; i++) {
-            T prev = items[(head + i) & (items.length - 1)];
-            T next = items[(head + i + 1) & (items.length - 1)];
-            if (comparator.compare(prev, next) > 0) {
-                max = prev;
-            } else {
-                max = next;
+        T max = items[head & (items.length - 1)];
+        for (int i = 0; i < this.size(); i++) {
+            T current = items[(head + i) & (items.length - 1)];
+            if (comparator.compare(max, current) < 0) {
+                max = current;
             }
         }
         return max;
     }
+
     public T max(Comparator<T> c) {
         if (isEmpty()) {
             return null;
         }
-        T items[] = this.getItems();
-        T max = items[0];
-        int head = this.getHead();
-        for (int i = 0; i < this.size() - 1; i++) {
-            T prev = items[(head + i) & (items.length - 1)];
-            T next = items[(head + i + 1) & (items.length - 1)];
-            if (c.compare(prev, next) > 0) {
-                max = prev;
-            } else {
-                max = next;
+        T max = items[head & (items.length - 1)];
+        for (int i = 0; i < this.size(); i++) {
+            T current = items[(head + i) & (items.length - 1)];
+            if (comparator.compare(max, current) < 0) {
+                max = current;
             }
         }
         return max;
     }
+
     public static <T> Comparator<T> getComparator() {
-        return new ArrayDequeComparator<>();
+        return new MaxArrayDequeComparator<>();
     }
 }
