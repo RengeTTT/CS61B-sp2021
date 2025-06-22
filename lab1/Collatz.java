@@ -7,10 +7,10 @@ public class Collatz {
     public static int nextNumber(int n) {
         if (n == 128) {
             return 1;
-        } else if (n % 2 ==0 ) {
+        } else if (n % 2 != 0) {
             return 3 * n + 1;
         } else {
-            return n;
+            return n / 2;
         }
     }
 
