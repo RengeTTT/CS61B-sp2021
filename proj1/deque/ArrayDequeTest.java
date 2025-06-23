@@ -101,7 +101,7 @@ public class ArrayDequeTest {
         deque.addLast(3);
         deque.addFirst(4);
         deque.addFirst(5);
-        ArrayDeque<Integer> deque2 = new ArrayDeque<>(deque);
+        ArrayDeque<Integer> deque2 = new ArrayDeque<>();
         deque2.printDeque();
         deque.printDeque();
         assertFalse(deque.toString().equals(deque2.toString()));
@@ -154,7 +154,11 @@ public class ArrayDequeTest {
         deque.addLast(2);
         deque.addLast(3);
         deque.addLast(4);
-        ArrayDeque<Integer> deque2 = new ArrayDeque<>(deque);
+        ArrayDeque<Integer> deque2 = new ArrayDeque<>();
+        deque2.addLast(1);
+        deque2.addLast(2);
+        deque2.addLast(3);
+        deque2.addLast(4);
         deque.equals(deque2);
     }
     @Test
