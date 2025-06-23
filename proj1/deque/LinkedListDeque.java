@@ -137,6 +137,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             return val;
         }
     }
+    @Override
     public Iterator<T> iterator() {
         return new LinkedListIterator();
     }
@@ -150,7 +151,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (!(obj instanceof Deque)) {
             return false;
         }
-        Deque<T> other = (Deque<T>) obj;
+        Deque<?> other = (Deque<?>) obj;
         if (other.size() != this.size()) {
             return false;
         }

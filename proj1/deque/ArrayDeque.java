@@ -156,6 +156,7 @@ public class ArrayDeque<T> implements Deque<T> {
             return item;
         }
     }
+    @Override
     public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
@@ -169,7 +170,7 @@ public class ArrayDeque<T> implements Deque<T> {
         if (!(obj instanceof Deque)) {
            return false;
         }
-        Deque<T> other = (Deque<T>) obj;
+        Deque<?> other = (Deque<?>) obj;
         if (other.size() != this.size()) {
             return false;
         }

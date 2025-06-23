@@ -181,5 +181,19 @@ public class ArrayDequeTest {
         Integer item = maxAD.max(comparator);
         assertEquals(maxAD.get(2) + "," + item,maxAD.get(2), item);
     }
+    @Test
+    public void twoTypesComparatorTest() {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.addLast(1);
+        deque.addLast(2);
+        deque.addLast(3);
+        deque.addLast(4);
+        LinkedListDeque<Integer> deque2 = new LinkedListDeque<>();
+        deque2.addLast(1);
+        deque2.addLast(2);
+        deque2.addLast(3);
+        deque2.addLast(4);
+        deque.equals(deque2);
+    }
 
 }
