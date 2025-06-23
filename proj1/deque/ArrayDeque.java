@@ -1,7 +1,7 @@
 package deque;
 
 import java.util.Iterator;
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private T[] items;
 
@@ -122,8 +122,7 @@ public class ArrayDeque<T> implements Deque<T> {
             return;
         }
         int newCapacity = items.length;
-        int oldCapacity = items.length;
-        double newUsageRate =  usageRate;
+        double newUsageRate = usageRate;
         while (true) {
             newCapacity = newCapacity >>> 1;
             newUsageRate = 1.0 * size() / newCapacity;
@@ -164,11 +163,11 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public boolean equals(Object obj) {
 
-        if (this == obj ) {
+        if (this == obj) {
             return true;
         }
         if (!(obj instanceof Deque)) {
-           return false;
+            return false;
         }
         Deque<?> other = (Deque<?>) obj;
         if (other.size() != this.size()) {
