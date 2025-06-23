@@ -1,7 +1,7 @@
 package deque;
 
 import java.util.Iterator;
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     protected T[] items;
 
@@ -160,13 +160,13 @@ public class ArrayDeque<T> implements Deque<T> {
         return new ArrayDequeIterator();
     }
     public boolean equals(Object obj) {
-        if(this == obj) {
+        if (this == obj) {
             return true;
         }
         if (!(obj instanceof Deque)) {
             return false;
         }
-        Deque<T> other = (Deque<T>) obj;
+        ArrayDeque<T> other = (ArrayDeque<T>) obj;
         if (other.size() != size) {
             return false;
         }
