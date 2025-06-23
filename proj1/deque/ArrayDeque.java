@@ -3,12 +3,12 @@ package deque;
 import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
-    protected T[] items;
+    private T[] items;
 
-    protected int head, tail; // 循环数组head，tail跟踪队列头尾
-    protected double usageRate;
+    private int head, tail; // 循环数组head，tail跟踪队列头尾
+    private double usageRate;
 
-    protected int size;
+    private int size;
     private static final int MAX_CAPACITY = Integer.MAX_VALUE;
     private static final int DEFAULT_CAPACITY = 8;
     private static final double DEFAULT_LOAD_FACTOR = 0.25;
@@ -19,21 +19,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         tail = 0;
         size = 0;
     }
-    public ArrayDeque(ArrayDeque<T> other) {
-
-        int capacity = other.items.length;
-        T[] newItems = (T[]) new Object[capacity];
-        for (int i  = 0; i < other.size(); i++) {
-            int index = (other.head + i) & (capacity - 1);
-            newItems[index] = other.items[index];
-        }
-
-        this.size = other.size();
-        this.head = other.head;
-        this.tail = other.tail;
-        this.usageRate = other.usageRate;
-        this.items = newItems;
-    }
+//    public ArrayDeque(ArrayDeque<T> other) {
+//
+//        int capacity = other.items.length;
+//        T[] newItems = (T[]) new Object[capacity];
+//        for (int i  = 0; i < other.size(); i++) {
+//            int index = (other.head + i) & (capacity - 1);
+//            newItems[index] = other.items[index];
+//        }
+//
+//        this.size = other.size();
+//        this.head = other.head;
+//        this.tail = other.tail;
+//        this.usageRate = other.usageRate;
+//        this.items = newItems;
+//    }
 
     public void addFirst(T item) {
 
@@ -159,21 +159,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
+    @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+
+        if (this == obj || obj == null) {
             return true;
         }
-        if (!(obj instanceof Deque)) {
+        if (obj.getClass() != this.getClass()) {
+           return false;
+        }
+        Deque<T> other = (Deque<T>) obj;
+        if (other.size() != this.size()) {
             return false;
         }
-        ArrayDeque<T> other = (ArrayDeque<T>) obj;
-        if (other.size() != size) {
-            return false;
-        }
-        Iterator<T> thisIterator = this.iterator();
-        Iterator<?> otherIterator = other.iterator();
-        while (thisIterator.hasNext()) {
-            if (!thisIterator.equals(otherIterator.next())) {
+        for (int i = 0; i < size(); i++) {
+            if (!this.get(i).equals(other.get(i))) {
                 return false;
             }
         }

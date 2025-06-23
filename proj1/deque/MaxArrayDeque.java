@@ -22,23 +22,16 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T max = items[head & (items.length - 1)];
-        for (int i = 0; i < this.size(); i++) {
-            T current = items[(head + i) & (items.length - 1)];
-            if (comparator.compare(max, current) < 0) {
-                max = current;
-            }
-        }
-        return max;
+        return max(comparator);
     }
 
     public T max(Comparator<T> c) {
         if (isEmpty()) {
             return null;
         }
-        T max = items[head & (items.length - 1)];
+        T max = this.get(0);
         for (int i = 0; i < this.size(); i++) {
-            T current = items[(head + i) & (items.length - 1)];
+            T current = this.get(i);
             if (c.compare(max, current) < 0) {
                 max = current;
             }

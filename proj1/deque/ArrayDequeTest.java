@@ -155,7 +155,7 @@ public class ArrayDequeTest {
         deque.addLast(3);
         deque.addLast(4);
         ArrayDeque<Integer> deque2 = new ArrayDeque<>(deque);
-         deque.equals(deque2);
+        deque.equals(deque2);
     }
     @Test
     public void comparatorTest() {
