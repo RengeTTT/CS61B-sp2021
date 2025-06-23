@@ -46,7 +46,4 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         return max;
     }
 
-    public static <T> Comparator<T> getComparator() {
-        return new MaxArrayDequeComparator<>();
-    }
 }

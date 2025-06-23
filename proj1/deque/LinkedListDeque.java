@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
+public class LinkedListDeque<T> implements Deque<T> {
 
     private Node<T> sentinel;
     private int size;
@@ -34,16 +34,16 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         sentinel.prev = sentinel;
         size = 0;
     }
-    public LinkedListDeque(LinkedListDeque<T> other) {
-        sentinel = new Node<>();
-        sentinel.prev = sentinel;
-        sentinel.next = sentinel;
-        for (int i = 0; i < other.size(); i++) {
-            T val = other.get(i);
-            addLast(val);
-        }
-        size = other.size();
-    }
+//    public LinkedListDeque(LinkedListDeque<T> other) {
+//        sentinel = new Node<>();
+//        sentinel.prev = sentinel;
+//        sentinel.next = sentinel;
+//        for (int i = 0; i < other.size(); i++) {
+//            T val = other.get(i);
+//            addLast(val);
+//        }
+//        size = other.size();
+//    }
 
     public void addFirst(T item) {
         Node<T> newNode = new Node<>(item);
@@ -65,10 +65,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         sentinel.prev = lastNode;   // 哨兵节点的上一个节点是最后一个节点
         lastNode.next = sentinel;   // 最后一个节点的下一个节点是哨兵节点
         size++;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public int size() {
@@ -144,22 +140,27 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return new LinkedListIterator();
     }
+
     public boolean equals(Object obj) {
-        if (obj instanceof LinkedListDeque || obj instanceof ArrayDeque) {
-            LinkedListDeque<T> objDeque = (LinkedListDeque<T>) obj;
-            if (size != objDeque.size()) {
-                return false;
-            }
-            Iterator<T> objItr = objDeque.iterator();
-            Iterator<T> thisItr = this.iterator();
-            while (thisItr.hasNext()) {
-                if (objItr.next() != thisItr.next()) {
-                    return false;
-                }
-            }
+
+        if(this == obj) {
             return true;
         }
-        return false;
+        if (!(obj instanceof Deque)) {
+            return false;
+        }
+        Deque<T> other = (Deque<T>) obj;
+        if (other.size() != size) {
+            return false;
+        }
+        Iterator<T> thisIterator = this.iterator();
+        Iterator<?> otherIterator = other.iterator();
+        while (thisIterator.hasNext()) {
+            if (!thisIterator.equals(otherIterator.next())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void printDeque() {

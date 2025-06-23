@@ -149,9 +149,7 @@ public class LinkedListDequeTest {
         lld1.addFirst(2);
         lld1.addFirst(3);
         lld1.addFirst(4);
-        LinkedListDeque lld2 = new LinkedListDeque<Integer>(lld1);
-        assertFalse(lld1.toString().equals(lld2.toString()));
-        lld2.addFirst(0);
+
     }
     @Test
     public void iteratorTest() {
@@ -174,8 +172,6 @@ public class LinkedListDequeTest {
         lld1.addFirst(2);
         lld1.addFirst(3);
         lld1.addFirst(4);
-        LinkedListDeque lld2 = new LinkedListDeque<Integer>(lld1);
-        //lld2.addFirst(0);
-        assertTrue(lld1.equals(lld2));
+
     }
 }

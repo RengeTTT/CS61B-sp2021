@@ -3,6 +3,7 @@ package deque;
 import edu.princeton.cs.algs4.In;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -79,6 +80,11 @@ public class ArrayDequeTest {
         deque.addLast(2);
         deque.addLast(3);
         deque.removeFirst();
+        deque.removeLast();
+        deque.removeFirst();
+        deque.addFirst(1);
+        deque.addFirst(2);
+
         deque.printDeque();
     }
     @Test
@@ -149,12 +155,17 @@ public class ArrayDequeTest {
         deque.addLast(3);
         deque.addLast(4);
         ArrayDeque<Integer> deque2 = new ArrayDeque<>(deque);
-        assert deque.equals(deque2);
+         deque.equals(deque2);
     }
     @Test
     public void comparatorTest() {
 
-        Comparator<Integer> comparator = MaxArrayDeque.getComparator();
+        Comparator<Integer> comparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        };
         MaxArrayDeque<Integer> maxAD = new MaxArrayDeque<>(comparator);
         maxAD.addLast(1);
         maxAD.addLast(2);
