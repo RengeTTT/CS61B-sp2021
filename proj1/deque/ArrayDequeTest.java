@@ -1,10 +1,7 @@
 package deque;
 
-import edu.princeton.cs.algs4.In;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -149,22 +146,20 @@ public class ArrayDequeTest {
     }
     @Test
     public void equalsTest() {
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
-        deque.addLast(1);
-        deque.addLast(2);
-        deque.addLast(3);
-        deque.addLast(4);
-        ArrayDeque<Integer> deque2 = new ArrayDeque<>();
-        deque2.addLast(1);
-        deque2.addLast(2);
-        deque2.addLast(3);
-        deque2.addLast(4);
-        deque.equals(deque2);
+        Deque<Integer> arrayDeque = new ArrayDeque<>();
+        arrayDeque.addLast(1);
+        arrayDeque.addLast(2);
+
+        Deque<Integer> linkedDeque = new LinkedListDeque<>();
+        linkedDeque.addLast(1);
+        linkedDeque.addLast(2);
+
+        System.out.println(arrayDeque.equals(linkedDeque));
     }
     @Test
     public void comparatorTest() {
 
-        Comparator<Integer> comparator = new Comparator<Integer>() {
+        Comparator<Integer> comparator = new Comparator<>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return o1.compareTo(o2);
