@@ -2,10 +2,6 @@ package gh2;
 
 import deque.ArrayDeque;
 
-import deque.Deque;
-import edu.princeton.cs.algs4.StdAudio;
-
-
 //Note: This file will not compile until you complete the Deque implementations
 public class GuitarString {
     /**
